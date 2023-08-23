@@ -1,7 +1,9 @@
 //index encargado de arrancar todo
 
 import app from './app.js'
+import {connectDB} from './db.js'
 
 
-app.listen(3000)
-console.log('Server on port', 3000)
+connectDB();
+app.listen(4000);
+console.log('Server on port', 4000);
