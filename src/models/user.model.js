@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-mongoose.Schema({ //el esquema es el objeto que vamos a crear 
+const userSchema = new mongoose.Schema({ //el esquema es el objeto que vamos a crear 
     username:{
         type: String, //el tipo de dato
         required: true, //el tipo de dato es requerido siempre
@@ -17,6 +17,8 @@ mongoose.Schema({ //el esquema es el objeto que vamos a crear
         required: true,
         trim: true,
     }
+},{
+    timestamps: true //me sirve para guardar la fecha y hora de cuando se creo un nuevo usuario 
 })
 
 export default mongoose.model('User', userSchema) //cuando lo llamamos crea una coleccion de usuarios User 
