@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { login, register } from "../controllers/auth.controller.js"; // de esta manera importo los endpoints
 
-//este archivo engloba todas las rutas relacionadas con el login
+//este archivo engloba todas las rutas 
 
-const router = Router(); // enrutador creado
+const router = Router(); // enrutador creado , se define como constante para usarlo y llamar sus metodos
 
 router.post('/register', register); //a esta ruta se le entrega la funcion register
 
