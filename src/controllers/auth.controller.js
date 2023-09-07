@@ -38,7 +38,7 @@ export const register = async (req, res) => { //funcion de registro que va a ten
         //     updatedAt : userSaved.updatedAt
         // });
     }catch(error){
-        console.log(error);
+        res.status(500).json({message: error.message}); //en el caso de error respondera con un error 500
     }
 }; 
 
