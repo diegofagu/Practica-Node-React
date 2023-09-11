@@ -10,10 +10,8 @@ export const register = async (req, res) => { //funcion de registro que va a ten
     const {email, password , username} = req.body //aca digo que extraere del request body: un password, email y username
      
     try{
-
         const passwordHash = await bcrypt.hash(password, 10); //hash es un metodo que encripta la contraseña, primer parametro el string que quiero
                                         //encriptar y luego la cantidad de veces que se requiere que se ejecute el algoritmo
-
         const newUser = new User({ //de esta manera le digo al endpoint que cuando lo llame y le pase los parametros del modelo este va
             username, //a crear un nuevo usuario 
             email,
@@ -43,5 +41,30 @@ export const register = async (req, res) => { //funcion de registro que va a ten
 }; 
 
 
+export const login = async (req, res) => { 
+    const {email, password} = req.body // se necesita el email y password para el request de login
+    try{
 
-export const login = (req, res) => res.send('login');
+        const userFound = await  User.findOne({email}); //aca le estoy diciendo que busque por email            
+        if(!userFound) return res.status(400).json({menubar: "User not found"}); //si no existe el usuario ingresado devuelve un error 400
+        
+        const isMatch = await bcrypt.compare(password, userFound.password);  // compara el password ingresado con el existente en la base de datos 
+        if(!isMatch) return res.status(400).json({mesagge: "Incorrect password"});
+ 
+        const token = await createAccessToken({id: userFound._id}); 
+
+        res.cookie('token', token);
+        res.json({
+            message: "User loged successfully",
+        })
+    }catch(error){
+        res.status(500).json({message: error.message});
+    }
+}; 
+
+export const logout =  (req,res) => {
+    res.cookie('token',"",{expires: new Date(0)})  //se crea una cookie la cual contendra el token y estara vacio, junto con una fecha de expiracion la cual sera 0
+    return res.sendStatus(200);
+
+};
+

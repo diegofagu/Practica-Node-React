@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login, register } from "../controllers/auth.controller.js"; // de esta manera importo los endpoints
+import { login, register, logout } from "../controllers/auth.controller.js"; // de esta manera importo los endpoints
 
 //este archivo engloba todas las rutas 
 
@@ -9,5 +9,6 @@ router.post('/register', register); //a esta ruta se le entrega la funcion regis
 
 router.post('/login', login);// a esta ruta se le entrega la funcion login
 
+router.post('/logout', logout);
 
 export default router //se debe exportar el router
