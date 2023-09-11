@@ -1,5 +1,7 @@
 import {TOKEN_SECRET} from '../config.js'
 import jwt from 'jsonwebtoken'
+
+
 //funcion se crea el token
 export function createAccessToken(payload){     
     return new Promise((resolve, reject) => { //este tipo de funcion devuelven un resolve y un reject

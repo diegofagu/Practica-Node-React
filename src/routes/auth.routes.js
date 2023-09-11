@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { login, register, logout } from "../controllers/auth.controller.js"; // de esta manera importo los endpoints
+import { login, register, logout , profile } from '../controllers/auth.controller.js'; // de esta manera importo los endpoints
+import { authRequired } from "../middlewares/validateToken.js";
 
 //este archivo engloba todas las rutas 
 
@@ -10,5 +11,7 @@ router.post('/register', register); //a esta ruta se le entrega la funcion regis
 router.post('/login', login);// a esta ruta se le entrega la funcion login
 
 router.post('/logout', logout);
+
+router.get('/profile', authRequired, profile); //authRequired es una funcion que valida el token
 
 export default router //se debe exportar el router
